@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [App\Http\Controllers\GuestController::class, 'index'])->name('guest');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/entries/create', [App\Http\Controllers\EntryController::class, 'create'])->name('entries.create');
+Route::post('/entries', [App\Http\Controllers\EntryController::class, 'store'])->name('entries.store');
+
+Route::get('/entries/{entry}', [App\Http\Controllers\GuestController::class, 'show'])->name('entries.show');
+
+Route::get('/entries/{entry}/edit', [App\Http\Controllers\EntryController::class, 'edit'])->name('entries.edit');
+Route::put('/entries/{entry}', [App\Http\Controllers\EntryController::class, 'update'])->name('entries.update');
+
+Route::get('/users/{user}', [App\Http\Controllers\UserController::class, 'show'])->name('users.show');

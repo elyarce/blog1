@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Entry;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $entries = Entry::where('user_id', auth()->id())
+            ->orderByDesc('created_at')
+            ->orderByDesc('id')
+            ->paginate(10);
+            //->get();
+        //return view('welcome', compact('entries'));
+        return view('home', ['entries' => $entries]);
     }
 }

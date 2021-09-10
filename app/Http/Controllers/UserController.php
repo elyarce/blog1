@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Entry;
+
+class UserController extends Controller
+{
+    public function show(User $user)
+    {
+        $entries = Entry::where('user_id', $user->id)->get();
+        //return view('entries.show', compact('entry'));
+        return view('users.show', ['user' => $user, 'entries' => $entries]);
+    }   
+}

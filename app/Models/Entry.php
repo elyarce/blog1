@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Entry extends Model
 {
     use HasFactory;
+
+    public function user() {
+        //return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
+    }    
 }
