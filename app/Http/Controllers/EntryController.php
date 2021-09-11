@@ -46,12 +46,18 @@ class EntryController extends Controller
 
     public function edit(Entry $entry)
     {
+        //validar si usuario actual (logueado) tiene autorización para editar-actualizar
+        $this->authorize('update', $entry);
+
         //return view('entries.edit', compact('entry'));
         return view('entries.edit', ['entry' => $entry]);
     }    
 
     public function update(Request $request, Entry $entry)
     {
+        //validar si usuario actual (logueado) tiene autorización para editar-actualizar
+        $this->authorize('update', $entry);
+
         $validatedData = $request->validate([
             'title' => 'required|min:7|max:60',
             'content' => 'required|min:25|max:3000'
